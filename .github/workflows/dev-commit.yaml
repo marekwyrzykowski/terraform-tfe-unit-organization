@@ -1,0 +1,30 @@
+name: CI for dev branch
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build-and-test:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Terragrunt and OpenTofu
+        uses: gruntwork-io/terragrunt-action@v3
+        with:
+          tg_version: '0.93.3'
+          tofu_version: '1.10.5'
+          
+      - name: Verify versions
+        run: |
+          terragrunt --version
+          tofu version
+
+      - name: Run unit tests
+        run: |
+          cd test-stack
+          terragrunt run --all test
