@@ -8,6 +8,12 @@ on:
 jobs:
   build-and-test:
     runs-on: self-hosted
+    env:
+      TG_PROVIDER_CACHE: 1 # Enable Terragrunt provider caching
+
+    defaults:
+      run:
+        working-directory: ./test-stack
 
     steps:
       - name: Checkout code
@@ -26,5 +32,4 @@ jobs:
 
       - name: Run unit tests
         run: |
-          cd test-stack
           terragrunt run --all test

@@ -3,7 +3,7 @@ include "root" {
 }
 
 terraform {
-  source = "../module"
+  source = "github.com/marekwyrzykowski/terraform-tfe-unit-organization.git//module/?ref=${values.branch}"
 }
 
 inputs = {
